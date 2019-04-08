@@ -250,6 +250,7 @@
                     A: 65,
                     S: 83,
                     D: 68,
+                    ENTER: 13,
                     SPACE: 32,
                     ONE   : 49,
                     TWO   : 50,
@@ -571,7 +572,15 @@
                 function loop() {
                     if (keyDown[key.SPACE]) {
                         enemies[Math.floor(Math.random()*enemies.length)].kill();
-                    }                
+                    }   
+                    if (keyDown[key.ENTER]) {
+                        for (i = 0; i < enemies.length; i++)
+                        {
+                            if(!enemies[i].alive) {
+                                enemies[i].alive = true;
+                            }
+                        }
+                    }             
                     calcPlayerVector();
                     calcPlayerRadian();
                     // calcEnemy();
