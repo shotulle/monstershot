@@ -78,7 +78,6 @@
                 function mouseUp() {
                     mouseIsDown = false;
                 }
-
                 
 
                 class Enemy {
@@ -93,6 +92,7 @@
                         this.type = 0;
                         this.angle = 270;
                         this.sides = 14;
+                        this.count = 0;
                     }
                     // calc(bulletx, bullety) {
                     //     for (var i = 0; i < 5; i++)
@@ -162,18 +162,33 @@
                     // }
 
                     kill() {
+                        this.count++;
                         this.alive = false;
+                    }
+                   
+                    gameClear() {
+                        if (this.count == number_of_enemies) {
+                        clearInterval(game)
+                        for (var i = 0; i < 6; i++)
+                        {
+                            ctx.font = "120" - (i*5) + "px serif";
+                            ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
+                            ctx.fillText("GAME CLEAR", 75 + (i * 10), 500 + (i * 5));
+                        }
+                        }
+
                     }
 
                     
                 }
 
-                var number_of_enemies = 10;
+                var number_of_enemies = 5;
                 var enemies = [];
                 for (var i = 0; i < number_of_enemies; i++)
                 {
                     enemies.push(new Enemy());
                 }
+
 
                 class Player {
                     constructor() {
@@ -260,6 +275,19 @@
                             ctx.fill();
 
                             ctx.beginPath();
+                            ctx.moveTo(this.x + this.eyeX - 10, this.y + this.eyeY + 3);
+                            ctx.lineTo(this.x + this.eyeX - 10, this.y + this.eyeY + 17);
+                            ctx.strokeStyle = 'rgb(109, 222, 249)'
+                            ctx.lineWidth = 5;
+                            ctx.stroke();
+
+                            ctx.beginPath();
+                            ctx.moveTo(this.x + this.eyeX + 10, this.y + this.eyeY + 3);
+                            ctx.lineTo(this.x + this.eyeX + 10, this.y + this.eyeY + 17);
+                            ctx.strokeStyle = 'rgb(109, 222, 249)'
+                            ctx.stroke();
+
+                            ctx.beginPath();
                             ctx.moveTo(this.x + this.eyeX - 15, this.y + this.eyeY - 5);
                             ctx.lineTo(this.x + this.eyeX - 5, this.y + this.eyeY + 5);
                             ctx.moveTo(this.x + this.eyeX - 5, this.y + this.eyeY - 5);
@@ -282,6 +310,15 @@
                     touchEnemy() {
                         this.alive = false;
                         clearInterval(game);
+                    }
+
+                    gameOver() {
+                        for (var i = 0; i < 6; i++)
+                        {
+                            ctx.font = "120" - (i*5) + "px serif";
+                            ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
+                            ctx.fillText("GAME OVER", 75 + (i * 10), 500 + (i * 5));
+                        }
                     }
 
                 }
@@ -492,10 +529,7 @@
                     //     enemies[i].randomKill();
                     
                     // }
-                
-                    player.reload();
-                    player.weaponChange();
-                    
+
                     for (var i = 0; i < enemies.length; i++)
                     {
                         if (!enemies[i].alive) {
@@ -504,8 +538,12 @@
                         if (Math.abs(enemies[i].x - player.x) < 45 && Math.abs(enemies[i].y - player.y) < 45)
                         {
                             player.touchEnemy();
+                            setInterval(player.gameOver, 200);
                         }
                     }
+                
+                    player.reload();
+                    player.weaponChange();
                 
                     if (mouseIsDown)
 		            shot();
@@ -524,7 +562,6 @@
                     ctx.fillRect(0,0,canvas.width,canvas.height);
                     player.draw();
                     bulletDraw();
-
 
                     for (var i = 0; i < enemies.length; i++) {
                         enemies[i].draw();
