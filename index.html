@@ -1,0 +1,708 @@
+<html>
+    <head>
+        <title>game</title>
+        <style>
+            canvas {
+                border-style: dashed;
+                border-width: 1px;
+                border-color: blue;
+            }
+        </style>
+    </head>
+
+    <body>
+            <canvas id="canvas" width="800" height="1000"></canvas>
+
+            <script>
+                var c = document.getElementById("canvas");
+                var ctx = c.getContext("2d");
+
+                // var circle = {
+                //     x: 400,z
+                //     y: 500,
+                //     radius: 300,
+                //     draw: function() {
+                //         for (var i = 0; i < 50; i ++)
+                //         { 
+                //             ctx.beginPath();
+                //             ctx.moveTo(this.x - (i * 3) + 300, this.y);
+                //             ctx.arc(this.x, this.y, this.radius - (i * 3), 0, Math.PI*2); 
+                //             ctx.fillStyle = 'rgb(' + (310 - (i * 5)) + ',' + (330 - (i * 5) )+ ', 230)';
+                //             ctx.fill();
+                //         }
+                //     }
+                // };
+
+                // function particles() {
+                //     var dotRadius = 5; 
+                //     var density = 30;
+                //     var particles = [];
+                //     var baseSpeed = 10;
+
+                //     function particle() {
+                //         this.speed = baseSpeed;
+                //         this.pos = {
+                //             x: Math.random() * canvas.width,
+                //             y: Math.random() * canvas.height
+                //         };
+                //         var rot = Math.random() * 360;
+                //         var angle = rot * Math.PI / 180;
+                
+                //         this.vec = {
+                //             x: Math.cos(angle) * this.speed,
+                    //         y: Math.sin(angle) * this.speed
+                    //     };
+                    // };
+
+                    // particle.prototype = {
+                    //     updatePosition: function() {
+                    //         this.pos.x += this.vec.x;
+                    //         this.pos.y += this.vec.y;
+                
+                    //         if(this.pos.x > canvas.width + 10) {
+                    //             this.pos.x = -5;
+                    //         } else if(this.pos.x < 0 - 10) {
+                    //             this.pos.x = canvas.width + 5;
+                    //         } else if(this.pos.y > canvas.height + 10) {
+                    //             this.pos.y = -5;
+                    //         } else if(this.pos.y < 0 - 10) {
+                    //             this.pos.y = canvas.height + 5;
+                    //         }
+
+                    //     },
+                    //     draw: function() {
+                    //         ctx.beginPath();
+                    //         ctx.fillStyle = 'balck';
+                    //         ctx.arc(this.pos.x, this.pos.y, dotRadius, 0, Math.PI*2, true);
+                    //         ctx.fill();
+                    //     },
+                    //     render: function() {
+                    //         this.draw();
+                    //         this.updatePosition();
+                    //     }
+                        
+                    // };
+
+
+                    // for (var i = 0; i < NUM; i++) {
+                    //     positionX = 300;
+                    //     positionY = 250;
+                    //     speed = Math.random()*10-5;
+                    //     particle = new Particle(positionX, positionY, speed); 
+                    //     particles.push(particle);
+                    // }
+
+                // }
+
+                    // for (var i = 0; i < this.density; i++) { 
+                    //     positionX = 300;
+                    //     positionY = 250;
+                    //     speedx = Math.random()*10-5;
+                    //     speedy = Math.random()*10-5;
+                    //     particle = new particle(positionX, positionY, speedx, speedy);
+                    //     particles.push(particle);
+                    // }
+
+                    // particle.prototype.updatePosition = function(){
+                    //     this.x += this.speedx;
+                    //     this.y += this.speedy;
+                        
+                    //     if(this.x < dotRadius || this.x > 600 - dotRadius){
+                    //         this.speedx *= -1;
+                    //     }
+                        
+                    //     if(this.y < dotRadius || this.y > 500 - dotRadius){
+                    //         this.speedy *= -1;
+                    //     }
+                    // }
+
+                    // particle.prototype.render = function(){
+                    //     this.draw();
+                    //     this.updatePosition();
+                    // }
+
+                    // for (var i = 0; i < this.density; i++) { 
+                    //     positionX = 300;
+                    //     positionY = 250;
+                    //     speedx = Math.random()*10-5;
+                    //     speedy = Math.random()*10-5;
+                    //     particle = new particle(positionX, positionY, speedx, speedy);
+                    //     particles.push(particle);
+                    // }
+                
+
+                
+                
+                // var bow = {
+                //     x: 680,
+                //     y: 850,
+                //     radius: 30,
+                //     draw: function () {
+                //         // arc
+                //         ctx.beginPath();
+                //         ctx.moveTo(this.x + this.radius, this.y);
+                //         ctx.arc(this.x, this.y, this.radius, 0, Math.PI / 2, true);
+                //         ctx.lineWidth = 5;
+                //         ctx.stroke();
+                //         // line
+                //         ctx.beginPath();
+                //         ctx.moveTo(this.x, this.y);
+                //         ctx.lineTo(780, 950);
+                //         ctx.lineWidth = 1;
+                //         ctx.stroke();
+
+                //         ctx.beginPath();
+                //         ctx.moveTo(770,940);
+                //         ctx.arc(770, 940, 4, 0, Math.PI*2);
+                //         ctx.fillStyle = 'black';
+                //         ctx.fill();
+                //         ctx.beginPath();
+                //         ctx.moveTo(760 + 7,930);
+                //         ctx.arc(760, 930, 7, 0, Math.PI*2);
+                //         ctx.lineWidth = 2;
+                //         ctx.stroke();
+                //     }
+                // };
+
+                // var arrow = {
+                //     x: 695,
+                //     y: 860,
+                //     draw: function () {
+                //         ctx.beginPath();
+                //         ctx.moveTo(this.x, this.y);
+                //         ctx.lineTo(595, 760);
+                //         ctx.lineWidth = 1;
+                //         ctx.stroke();
+
+                //         ctx.beginPath();
+                //         ctx.moveTo(625, 805);
+                //         ctx.lineTo(640, 790);
+                //         ctx.stroke();
+                //         ctx.beginPath();
+                //         ctx.moveTo(620, 820);
+                //         ctx.lineTo(650, 790);
+                //         ctx.stroke();
+
+                //         ctx.beginPath();
+                //         ctx.moveTo(595, 760);
+                //         ctx.lineTo(590, 810);
+                //         ctx.lineTo(605, 770);
+                //         ctx.fill();
+                //         ctx.beginPath();
+                //         ctx.moveTo(595, 760);
+                //         ctx.lineTo(640, 760);
+                //         ctx.lineTo(605, 770);
+                //         ctx.fillStyle = 'black';
+                //         ctx.fill();
+                //     }
+                // };
+
+                // var ball = {
+                //     radius: 15,
+                //     x: 5,
+                //     y: 5,
+                //     vx: 5,
+                //     vy: 5,
+                //     color: ['white', 'black'],
+                //     draw: function() {
+                //         if ((this.x - circle.x)*(this.x - circle.x) + (this.y - circle.y)*(this.y - circle.y) < (this.radius + 400)*(this.radius + 100))
+                //         {
+                //             ctx.beginPath();
+                //             ctx.moveTo(this.x + this.redius, this.y);
+                //             ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                //             ctx.fillStyle = this.color[0];
+                //             ctx.fill();
+                //         }
+                //         else
+                //         {
+                //             ctx.beginPath();
+                //             ctx.moveTo(this.x + this.redius, this.y);
+                //             ctx.arc(this.x,this.y, this.radius, 0, Math.PI*2);
+                //             ctx.fillStyle = this.color[1];
+                //             ctx.fill();
+                //         }  
+                //     }
+                // };a
+
+                // var hole = {
+                //     radius: 15,
+                //     x: 400,
+                //     y: 500,
+                //     color: 'white',
+                //     draw: function () {
+                //         ctx.beginPath();
+                //         ctx.moveTo(this.x + this.radius, this.y);
+                //         ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                //         ctx.fillStyle = this.color;
+                //         ctx.fill();
+                //     }
+                // }
+
+                document.addEventListener("keydown", keyDownFunc);
+                document.addEventListener("keyup", keyUpFunc);
+                document.addEventListener("mousemove", mouseMove);
+                document.addEventListener("mousedown", mouseDown);
+                document.addEventListener("mouseup", mouseUp);
+
+                var keyDown = {};
+                var key = {
+                    W: 87,
+                    A: 65,
+                    S: 83,
+                    D: 68,
+                    SPACE: 32,
+                    ONE   : 49,
+                    TWO   : 50,
+                    THREE : 51
+                };
+
+                var bullet = [];
+
+                var WEAPON = {
+                    NORMAL     : 1,
+                    MACHINEGUN : 2,
+                    SHOTGUN    : 3
+                };
+
+                var INTERVAL = {
+                    NORMAL     : 15,
+                    MACHINEGUN : 5,
+                    SHOTGUN    : 60
+                };
+
+                var mouseX;
+                var mouseY;
+                var mouseIsDown = false;
+
+                var player = new Player();
+
+                
+
+                class Enemy {
+                    constructor() {
+                        this.x = Math.random() * 800;
+                        this.y = Math.random() * 1000;
+                        this.dx = 2;
+                        this.dy = 2;
+                        this.size = 25;
+                        this.param = 0;
+                        this.alive = true;
+                        this.type = 0;
+                        this.angle = 270;
+                        this.sides = 14;
+                    }
+                    // calc(bulletx, bullety) {
+                    //     for (var i = 0; i < 5; i++)
+                    //     {
+                    //         if (bulletx > this.x - this.size && bulletx < this.x + this.size && bullety > this.y - this.size && bullety < this.y + this.size)
+                    //         {
+                    //             enemies.splice(i);
+                    //         }
+                    //     }
+                    // }
+                    
+                    move(playerx, playery) {
+                        if (this.x > playerx && this.y > playery)
+                        {
+                            this.x -= this.dx;
+                            this.y -= this.dy;
+                        }
+                        else if (this.x < playerx && this.y < playery)
+                        {
+                            this.x += this.dx;
+                            this.y += this.dy;
+                        }
+                        else if (this.x > playerx && this.y < playery)
+                        {
+                            this.x -= this.dx;
+                            this.y += this.dy;
+                        }
+                        else if (this.x < playerx && this.y > playery)
+                        {
+                            this.x += this.dx;
+                            this.y -= this.dy;
+                        }
+                    }
+
+                    draw() {
+                        var dent = this.size * 0.5;
+                        var radOffset = this.angle * Math.PI/180;
+                        var radDiv = (Math.PI*2)/this.sides/2;
+                        
+                        // if (this.alive == true)
+                        // {
+                            ctx.beginPath();
+                            ctx.moveTo(this.x + Math.cos(radOffset) * this.size, this.y + Math.sin(radOffset) * this.size);
+                            for (var i = 1; i < this.sides * 2; i++) {
+                                var rad = radDiv * i + radOffset;
+                                var len = (i % 2) ? dent : this.size;
+                                ctx.lineTo(
+                                    this.x + Math.cos(rad)*len,
+                                    this.y + Math.sin(rad)*len
+                                );
+                                ctx.fillStyle = 'rgb(7, 111, 0)';
+                                ctx.fill();
+                            }
+                        // }
+                    }
+
+                    // kill() {
+                    //     var removeEnemy = enemies.splice(Math.random()*enemies.length)
+                    // }
+
+                    randomKill() {
+                        var pos = enemies.indexOf(Math.floor(Math.random()*enemies.length));
+                        if ((keyDown[key.SPACE]))
+                        {
+                            enemies.splice(pos);
+                        }
+                    }
+
+                    
+                }
+
+                var number_of_enemies = 10;
+                var enemies = [];
+                for (var i = 0; i < number_of_enemies; i++)
+                {
+                    enemies.push(new Enemy());
+                }
+
+
+                setInterval(loop, 1000 / 60);
+
+                function keyDownFunc(e) {
+                    keyDown[e.keyCode] = true;
+                }
+
+                function keyUpFunc(e) {
+                    keyDown[e.keyCode] = false;
+                }
+
+                function mouseMove(e) {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                }
+
+                function mouseDown() {
+                    mouseIsDown = true;
+                }
+
+                function mouseUp() {
+                    mouseIsDown = false;
+                }
+
+                function reload() {
+                    if (player.reloadNormal > 0)
+                        player.reloadNormal--;
+                    if (player.reloadMachinegun > 0)
+                        player.reloadMachinegun--;
+                    if (player.reloadShotgun > 0)
+                        player.reloadShotgun--;
+
+                    
+                }
+
+                function weaponChange() {
+                    if (keyDown[key.ONE]) player.weapon = WEAPON.NORMAL;
+                    if (keyDown[key.TWO]) player.weapon = WEAPON.MACHINEGUN;
+                    if (keyDown[key.THREE]) player.weapon = WEAPON.SHOTGUN;
+                }
+
+                function shot() {
+                    switch (player.weapon) {
+                    case WEAPON.NORMAL:
+                        if (player.reloadNormal === 0) {
+                            bullet.push( new Bullet(5, player.x, player.y, player.radian, 3, 400) );
+                            player.reloadNormal = INTERVAL.NORMAL;
+                        }
+                        break;
+                    case WEAPON.MACHINEGUN:
+                        if (player.reloadMachinegun === 0) {
+                            bullet.push( new Bullet(5, player.x, player.y, player.radian, 7, 200) );
+                            player.reloadMachinegun = INTERVAL.MACHINEGUN;
+                        }
+                        break;
+                    case WEAPON.SHOTGUN:
+                        if (player.reloadShotgun === 0) {
+                            for (var i = -5; i <= 5; i++) {
+                                var rad = i * Math.PI / 35;
+                                bullet.push( new Bullet(3, player.x, player.y, player.radian + rad, 5, 100) );
+                            }
+                            player.reloadShotgun = INTERVAL.SHOTGUN;
+                        }
+                        break;
+                    }  
+                }
+
+                function calcPlayerVector() {
+                    if (keyDown[key.W])  player.dy -= player.acceleration;
+                    if (keyDown[key.A])  player.dx -= player.acceleration;
+                    if (keyDown[key.S])  player.dy += player.acceleration;
+                    if (keyDown[key.D])  player.dx += player.acceleration;
+                    
+                    player.dx = player.dx * player.friction;
+                    player.dy = player.dy * player.friction;
+                }
+
+                function calcPlayerRadian() {
+                    var dx = mouseX - player.x;
+                    var dy = mouseY - player.y;
+                    player.radian = Math.atan2(dy,dx);
+                }
+
+                function calcBulletLimit() {
+                    for (var i = 0; i < bullet.length; i++) {
+                        if ( bullet[i].limit > 0 ) {
+                            bullet[i].limit--;
+                        } else {
+                            bullet.splice(i, 1);
+                            i--;
+                        }
+                    }
+                }
+
+               
+                // function calcEnemy() {
+                //     var i;
+                //     var j;
+
+                //     if(counter % 100 === 0){
+                //     for(i = 0; i < max; i++){
+                //         if(!enemy[i].alive){
+                //             j = (counter % 200) / 100;
+                //             enemy.x = - enemy.size + (canvas.width + enemy.size * 2) * j
+                //             enemy.y = canvas.height / 2;
+
+                //             enemy[i].set();
+
+                //             break;
+                //         }
+                //     }
+                //     j = (counter % 200) / 100;
+
+                //     p.x = -enemy.size + (canvas.width + enemy.size * 2) * j
+                //     p.y = canvas.height / 2;
+                //     }
+                // }
+
+                // function enemySet() {
+                //     enemy.x = p.x;
+                //     enemy.y = p.y;
+                //     enemy.size = size;
+                //     enemy.param = 0;
+                //     enemy.alive = true;
+                //     enemy.type = type;
+                // }
+
+
+
+                function playerMove() {
+                    player.x += player.dx;
+                    player.y += player.dy;
+                    
+                    player.eyeX = 0.45 * player.size*Math.cos(player.radian);
+                    player.eyeY = 0.45 * player.size*Math.sin(player.radian);
+                }
+
+                function bulletMove() {
+                    for (var i = 0; i < bullet.length; i++) {
+                        bullet[i].x += bullet[i].speed * Math.cos(bullet[i].radian);
+                        bullet[i].y += bullet[i].speed * Math.sin(bullet[i].radian);
+                    }
+                }
+
+                // function enemyMove(enemy) {
+                //     if (enemy.x > player.x && enemy.y > player.y)
+                //     {
+                //         enemy.x -= enemy.dx;
+                //         enemy.y -= enemy.dy;
+                //     }
+                //     else if (enemy.x < player.x && enemy.y < player.y)
+                //     {
+                //         enemy.x += enemy.dx;
+                //         enemy.y += enemy.dy;
+                //     }
+                //     else if (enemy.x > player.x && enemy.y < player.y)
+                //     {
+                //         enemy.x -= enemy.dx;
+                //         enemy.y += enemy.dy;
+                //     }
+                //     else if (enemy.x < player.x && enemy.y > player.y)
+                //     {
+                //         enemy.x += enemy.dx;
+                //         enemy.y -= enemy.dy;
+                //     }      
+                // }
+
+
+                
+                function playerDraw() {
+                    ctx.beginPath();
+                    ctx.arc(player.x, player.y, player.size, 0, Math.PI*2, true);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+
+                    
+                    ctx.beginPath();
+                    ctx.arc(player.x + player.eyeX - 10, player.y + player.eyeY, player.size / 5, 0, Math.PI*2, true);
+                    ctx.fillStyle = 'rgb(223, 153, 179)';
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(player.x + player.eyeX + 10, player.y + player.eyeY, player.size / 5, 0, Math.PI*2, true);
+                    ctx.fillStyle = 'rgb(223, 153, 179)';
+                    ctx.fill();
+        
+                }
+
+                function bulletDraw() {
+                    for (var i = 0; i < bullet.length; i++) {
+                        ctx.beginPath();
+                        ctx.arc(bullet[i].x, bullet[i].y, bullet[i].size, 0, Math.PI*2, true);
+                        ctx.fillStyle = 'rgb(250, 254, 121)';
+                        ctx.fill();
+                    }
+                }
+
+                function loop() {                
+                    calcPlayerVector();
+                    calcPlayerRadian();
+                    // calcEnemy();
+                    // calcBulletLimit();
+                    for (var i = 0; i < enemies.length; i++) {
+                       
+                        enemies[i].randomKill();
+                    
+                    }
+                
+                    reload();
+                    weaponChange();
+                
+                    if (mouseIsDown)
+		            shot();
+
+                    playerMove();
+                    bulletMove();
+
+                    for (var i = 0; i < enemies.length; i++) {
+                        // enemyMove(enemies[i]);
+                        enemies[i].move(player.x, player.y);
+                    }
+
+                    
+
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    playerDraw();
+                    bulletDraw();
+
+
+                    for (var i = 0; i < enemies.length; i++) {
+                        enemies[i].draw();
+                    }
+                }
+
+            function Player() {
+                this.size = 25;
+                this.x = 50;
+                this.y = 50;
+                this.speed = 7;
+                this.dx = 0; 
+                this.dy = 0;           
+                this.acceleration = 0.5; 
+                this.friction = 0.92;    
+                this.radian = 0;          
+                this.eyeSize = this.size / 5;
+                this.eyeX = 0;           
+                this.eyeY = 0;
+                this.weapon = WEAPON.NORMAL;
+                this.reloadNormal = 0;
+                this.reloadMachinegun = 0;
+                this.reloadShotgun = 0;
+            }
+
+            function Bullet(size,x,y,radian,speed,distance) {
+                this.size = size;
+                this.x = x;
+                this.y = y;
+                this.radian = radian;
+                this.speed = speed;               
+                this.limit = Math.round(distance/speed);
+            }
+
+           
+
+            
+                
+        
+    
+        
+                           
+                // function draw(){
+                    // ctx.clearRect(0,0, canvas.width, canvas.height);
+                    // circle.draw();
+
+                    // particles();
+
+                    // // ball.draw();
+                    // // hole.draw();
+                    // // bow.draw();
+                    // // arrow.draw();
+
+                    // for (var i = 0; i < particles.density; i++) {
+                    //     particles[i].render();
+                    // 
+
+                    // particles.forEach(function (e) {
+                        // e.render();
+                    // });
+
+                    // for (var i = 0; i < density; i++) {
+                    //     particles.push(new particle());
+                    // }
+
+                    // if (ball.x == hole.x && ball.y == hole.y)
+                    // {
+                    //     ball.vx = 0;
+                    //     ball.vy = 0;
+                    //     ball.color = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
+                    // }
+                    // else
+                    // {
+                        // ball.x += ball.vx;
+                        // ball.y += ball.vy;
+
+                        // if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0)
+                        // {
+                        //     ball.vy = -ball.vy;
+                        // }
+                        // if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) 
+                        // {
+                        //     ball.vx = -ball.vx;
+                        // }
+                    // }
+
+                
+                    // var particles = {},
+                    // particleIndex = 0;
+
+                    // particleIndex++;
+                    // particles[particleIndex] = this;
+                    // this.id = particleIndex;
+
+                    // requestAnimationFrame(draw);
+    
+                // }
+
+                // canvas.addEventListener('mousemove', function(e) {
+                //     ctx.translate(595, 760);
+                //     ctx.rotate((Math.PI/180 * 90));
+                //     ctx.translate(-595, -760);
+                // })
+                
+            // draw();
+            
+            </script>
+    </body>
+
+</html>
