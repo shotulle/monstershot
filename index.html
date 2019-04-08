@@ -329,8 +329,8 @@
                         var radOffset = this.angle * Math.PI/180;
                         var radDiv = (Math.PI*2)/this.sides/2;
                         
-                        // if (this.alive == true)
-                        // {
+                        if (this.alive == true)
+                        {
                             ctx.beginPath();
                             ctx.moveTo(this.x + Math.cos(radOffset) * this.size, this.y + Math.sin(radOffset) * this.size);
                             for (var i = 1; i < this.sides * 2; i++) {
@@ -343,19 +343,23 @@
                                 ctx.fillStyle = 'rgb(7, 111, 0)';
                                 ctx.fill();
                             }
-                        // }
+                        }
                     }
 
                     // kill() {
                     //     var removeEnemy = enemies.splice(Math.random()*enemies.length)
                     // }
 
-                    randomKill() {
-                        var pos = enemies.indexOf(Math.floor(Math.random()*enemies.length));
-                        if ((keyDown[key.SPACE]))
-                        {
-                            enemies.splice(pos);
-                        }
+                    // randomKill() {
+                    //     var pos = enemies.indexOf(Math.floor(Math.random()*enemies.length));
+                    //     if ((keyDown[key.SPACE]))
+                    //     {
+                    //         enemies.splice(pos);
+                    //     }
+                    // }
+
+                    kill() {
+                        this.alive = false;
                     }
 
                     
@@ -564,16 +568,19 @@
                     }
                 }
 
-                function loop() {                
+                function loop() {
+                    if (keyDown[key.SPACE]) {
+                        enemies[Math.floor(Math.random()*enemies.length)].kill();
+                    }                
                     calcPlayerVector();
                     calcPlayerRadian();
                     // calcEnemy();
                     // calcBulletLimit();
-                    for (var i = 0; i < enemies.length; i++) {
+                    // for (var i = 0; i < enemies.length; i++) {
                        
-                        enemies[i].randomKill();
+                    //     enemies[i].randomKill();
                     
-                    }
+                    // }
                 
                     reload();
                     weaponChange();
