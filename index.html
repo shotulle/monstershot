@@ -92,7 +92,7 @@
                         this.type = 0;
                         this.angle = 270;
                         this.sides = 14;
-                        this.count = 0;
+                        // this.count = 0;
                     }
                     // calc(bulletx, bullety) {
                     //     for (var i = 0; i < 5; i++)
@@ -162,27 +162,46 @@
                     // }
 
                     kill() {
-                        this.count++;
+                        // this.count++;
                         this.alive = false;
                     }
                    
-                    gameClear() {
-                        if (this.count == number_of_enemies) {
-                        clearInterval(game)
-                        for (var i = 0; i < 6; i++)
-                        {
-                            ctx.font = "120" - (i*5) + "px serif";
-                            ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
-                            ctx.fillText("GAME CLEAR", 75 + (i * 10), 500 + (i * 5));
-                        }
-                        }
-
-                    }
+                    
 
                     
                 }
 
-                var number_of_enemies = 5;
+                function gameClear() {
+                    clearInterval(game)
+                    for (var i = 0; i < 6; i++)
+                    {
+                        ctx.font = "120" - (i*5) + "px serif";
+                        ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
+                        ctx.fillText("GAME CLEAR", 35 + (i * 10), 500 + (i * 5));
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(player.x + player.eyeX - 10, player.y + player.eyeY, player.size / 5, 0, Math.PI*2, true);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(player.x + player.eyeX + 10, player.y + player.eyeY, player.size / 5, 0, Math.PI*2, true);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.arc(player.x + player.eyeX - 10, player.y + player.eyeY, player.size / 5, 0, Math.PI, true);
+                    ctx.strokeStyle = 'rgb(223, 153, 179)';
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(player.x + player.eyeX + 10, player.y + player.eyeY, player.size / 5, 0, Math.PI, true);
+                    ctx.strokeStyle = 'rgb(223, 153, 179)';
+                    ctx.stroke();
+
+                }
+
+                var number_of_enemies = 2;
                 var enemies = [];
                 for (var i = 0; i < number_of_enemies; i++)
                 {
@@ -302,7 +321,7 @@
                             ctx.lineTo(this.x + this.eyeX + 5, this.y + this.eyeY + 5);
                             ctx.strokeStyle = 'rgb(223, 153, 179)';
                             ctx.stroke();
-
+                        
                         }
         
                     }
@@ -320,6 +339,8 @@
                             ctx.fillText("GAME OVER", 75 + (i * 10), 500 + (i * 5));
                         }
                     }
+
+                    
 
                 }
 
@@ -499,6 +520,11 @@
                 }
 
                 function loop() {
+                    if (enemies.every( (e) => !(e.alive) )) {
+                        setInterval(gameClear, 200);
+                       
+                    }
+
                     for (var i = 0; i < bullet.length; i++)
                     {
                         for (var j = 0; j < enemies.length; j++)
@@ -541,6 +567,10 @@
                             setInterval(player.gameOver, 200);
                         }
                     }
+
+                    
+                    
+                    
                 
                     player.reload();
                     player.weaponChange();
@@ -555,8 +585,6 @@
                         // enemyMove(enemies[i]);
                         enemies[i].move(player.x, player.y);
                     }
-
-                    
 
                     ctx.fillStyle = 'black';
                     ctx.fillRect(0,0,canvas.width,canvas.height);
