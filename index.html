@@ -92,17 +92,10 @@
                         this.type = 0;
                         this.angle = 270;
                         this.sides = 14;
+                        this.fire = [];
                         // this.count = 0;
                     }
-                    // calc(bulletx, bullety) {
-                    //     for (var i = 0; i < 5; i++)
-                    //     {
-                    //         if (bulletx > this.x - this.size && bulletx < this.x + this.size && bullety > this.y - this.size && bullety < this.y + this.size)
-                    //         {
-                    //             enemies.splice(i);
-                    //         }
-                    //     }
-                    // }
+                    
                     
                     move(playerx, playery) {
                         if (this.x > playerx && this.y > playery)
@@ -149,34 +142,19 @@
                         }
                     }
 
-                    // kill() {
-                    //     var removeEnemy = enemies.splice(Math.random()*enemies.length)
-                    // }
-
-                    // randomKill() {
-                    //     var pos = enemies.indexOf(Math.floor(Math.random()*enemies.length));
-                    //     if ((keyDown[key.SPACE]))
-                    //     {
-                    //         enemies.splice(pos);
-                    //     }
-                    // }
-
                     kill() {
-                        // this.count++;
                         this.alive = false;
+                        
                     }
-                   
-                    
-
-                    
                 }
 
+                
                 function gameClear() {
                     clearInterval(game)
                     for (var i = 0; i < 6; i++)
                     {
                         ctx.font = "120" - (i*5) + "px serif";
-                        ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
+                        ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ', 255)';
                         ctx.fillText("GAME CLEAR", 35 + (i * 10), 500 + (i * 5));
                     }
 
@@ -198,6 +176,10 @@
                     ctx.arc(player.x + player.eyeX + 10, player.y + player.eyeY, player.size / 5, 0, Math.PI, true);
                     ctx.strokeStyle = 'rgb(223, 153, 179)';
                     ctx.stroke();
+
+                    ctx.font = "28px serif";
+                    ctx.fillStyle = "rgb(253, 146, 253)";
+                    ctx.fillText('♪', player.x + 25, player.y - 20);
 
                 }
 
@@ -297,7 +279,7 @@
                             ctx.moveTo(this.x + this.eyeX - 10, this.y + this.eyeY + 3);
                             ctx.lineTo(this.x + this.eyeX - 10, this.y + this.eyeY + 17);
                             ctx.strokeStyle = 'rgb(109, 222, 249)'
-                            ctx.lineWidth = 5;
+                            ctx.lineWidth = 7;
                             ctx.stroke();
 
                             ctx.beginPath();
@@ -335,34 +317,14 @@
                         for (var i = 0; i < 6; i++)
                         {
                             ctx.font = "120" - (i*5) + "px serif";
-                            ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
+                            ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ', 0)';
                             ctx.fillText("GAME OVER", 75 + (i * 10), 500 + (i * 5));
                         }
                     }
-
-                    
-
                 }
 
                 var player = new Player();
 
-
-                // function reload() {
-                //     if (player.reloadNormal > 0)
-                //         player.reloadNormal--;
-                //     if (player.reloadMachinegun > 0)
-                //         player.reloadMachinegun--;
-                //     if (player.reloadShotgun > 0)
-                //         player.reloadShotgun--;
-
-                    
-                // }
-
-                // function weaponChange() {
-                //     if (keyDown[key.ONE]) player.weapon = WEAPON.NORMAL;
-                //     if (keyDown[key.TWO]) player.weapon = WEAPON.MACHINEGUN;
-                //     if (keyDown[key.THREE]) player.weapon = WEAPON.SHOTGUN;
-                // }
 
                 function shot() {
                     switch (player.weapon) {
@@ -390,21 +352,7 @@
                     }  
                 }
 
-                // function calcPlayerVector() {
-                //     if (keyDown[key.W])  player.dy -= player.acceleration;
-                //     if (keyDown[key.A])  player.dx -= player.acceleration;
-                //     if (keyDown[key.S])  player.dy += player.acceleration;
-                //     if (keyDown[key.D])  player.dx += player.acceleration;
-                    
-                //     player.dx = player.dx * player.friction;
-                //     player.dy = player.dy * player.friction;
-                // }
-
-                // function calcPlayerRadian() {
-                //     var dx = mouseX - player.x;
-                //     var dy = mouseY - player.y;
-                //     player.radian = Math.atan2(dy,dx);
-                // }
+                
 
                 function calcBulletLimit() {
                     for (var i = 0; i < bullet.length; i++) {
@@ -417,48 +365,7 @@
                     }
                 }
 
-               
-                // function calcEnemy() {
-                //     var i;
-                //     var j;
-
-                //     if(counter % 100 === 0){
-                //     for(i = 0; i < max; i++){
-                //         if(!enemy[i].alive){
-                //             j = (counter % 200) / 100;
-                //             enemy.x = - enemy.size + (canvas.width + enemy.size * 2) * j
-                //             enemy.y = canvas.height / 2;
-
-                //             enemy[i].set();
-
-                //             break;
-                //         }
-                //     }
-                //     j = (counter % 200) / 100;
-
-                //     p.x = -enemy.size + (canvas.width + enemy.size * 2) * j
-                //     p.y = canvas.height / 2;
-                //     }
-                // }
-
-                // function enemySet() {
-                //     enemy.x = p.x;
-                //     enemy.y = p.y;
-                //     enemy.size = size;
-                //     enemy.param = 0;
-                //     enemy.alive = true;
-                //     enemy.type = type;
-                // }
-
-
-
-                // function playerMove() {
-                //     player.x += player.dx;
-                //     player.y += player.dy;
-                    
-                //     player.eyeX = 0.45 * player.size*Math.cos(player.radian);
-                //     player.eyeY = 0.45 * player.size*Math.sin(player.radian);
-                // }
+              
 
                 function bulletMove() {
                     for (var i = 0; i < bullet.length; i++) {
@@ -466,49 +373,6 @@
                         bullet[i].y += bullet[i].speed * Math.sin(bullet[i].radian);
                     }
                 }
-
-                // function enemyMove(enemy) {
-                //     if (enemy.x > player.x && enemy.y > player.y)
-                //     {
-                //         enemy.x -= enemy.dx;
-                //         enemy.y -= enemy.dy;
-                //     }
-                //     else if (enemy.x < player.x && enemy.y < player.y)
-                //     {
-                //         enemy.x += enemy.dx;
-                //         enemy.y += enemy.dy;
-                //     }
-                //     else if (enemy.x > player.x && enemy.y < player.y)
-                //     {
-                //         enemy.x -= enemy.dx;
-                //         enemy.y += enemy.dy;
-                //     }
-                //     else if (enemy.x < player.x && enemy.y > player.y)
-                //     {
-                //         enemy.x += enemy.dx;
-                //         enemy.y -= enemy.dy;
-                //     }      
-                // }
-
-
-                
-                // function playerDraw() {
-                //     ctx.beginPath();
-                //     ctx.arc(player.x, player.y, player.size, 0, Math.PI*2, true);
-                //     ctx.fillStyle = 'white';
-                //     ctx.fill();
-
-                    
-                //     ctx.beginPath();
-                //     ctx.arc(player.x + player.eyeX - 10, player.y + player.eyeY, player.size / 5, 0, Math.PI*2, true);
-                //     ctx.fillStyle = 'rgb(223, 153, 179)';
-                //     ctx.fill();
-                //     ctx.beginPath();
-                //     ctx.arc(player.x + player.eyeX + 10, player.y + player.eyeY, player.size / 5, 0, Math.PI*2, true);
-                //     ctx.fillStyle = 'rgb(223, 153, 179)';
-                //     ctx.fill();
-        
-                // }
 
                 function bulletDraw() {
                     for (var i = 0; i < bullet.length; i++) {
@@ -521,15 +385,15 @@
 
                 function loop() {
                     if (enemies.every( (e) => !(e.alive) )) {
-                        setInterval(gameClear, 200);
-                       
+                        gameClear();
+                        setInterval(gameClear, 300);
                     }
 
                     for (var i = 0; i < bullet.length; i++)
                     {
                         for (var j = 0; j < enemies.length; j++)
                         {
-                            if(Math.abs(enemies[j].x - bullet[i].x) < 15 && Math.abs(enemies[j].y - bullet[i].y) < 15)
+                            if(Math.abs(enemies[j].x - bullet[i].x) < 20 && Math.abs(enemies[j].y - bullet[i].y) < 20)
                             {
                                 enemies[j].kill();
                             }
@@ -548,13 +412,7 @@
                     }             
                     player.vector();
                     player.playerRadian();
-                    // calcEnemy();
-                    // calcBulletLimit();
-                    // for (var i = 0; i < enemies.length; i++) {
-                       
-                    //     enemies[i].randomKill();
                     
-                    // }
 
                     for (var i = 0; i < enemies.length; i++)
                     {
@@ -564,13 +422,10 @@
                         if (Math.abs(enemies[i].x - player.x) < 45 && Math.abs(enemies[i].y - player.y) < 45)
                         {
                             player.touchEnemy();
-                            setInterval(player.gameOver, 200);
+                            setInterval(player.gameOver, 300);
                         }
                     }
 
-                    
-                    
-                    
                 
                     player.reload();
                     player.weaponChange();
@@ -586,7 +441,7 @@
                         enemies[i].move(player.x, player.y);
                     }
 
-                    ctx.fillStyle = 'black';
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
                     ctx.fillRect(0,0,canvas.width,canvas.height);
                     player.draw();
                     bulletDraw();
@@ -596,24 +451,7 @@
                     }
                 }
 
-            // function Player() {
-            //     this.size = 25;
-            //     this.x = 50;
-            //     this.y = 50;
-            //     this.speed = 7;
-            //     this.dx = 0; 
-            //     this.dy = 0;           
-            //     this.acceleration = 0.5; 
-            //     this.friction = 0.92;    
-            //     this.radian = 0;          
-            //     this.eyeSize = this.size / 5;
-            //     this.eyeX = 0;           
-            //     this.eyeY = 0;
-            //     this.weapon = WEAPON.NORMAL;
-            //     this.reloadNormal = 0;
-            //     this.reloadMachinegun = 0;
-            //     this.reloadShotgun = 0;
-            // }
+            
 
             function Bullet(size,x,y,radian,speed,distance) {
                 this.size = size;
@@ -625,77 +463,6 @@
             }
 
            
-
-            
-                
-        
-    
-        
-                           
-                // function draw(){
-                    // ctx.clearRect(0,0, canvas.width, canvas.height);
-                    // circle.draw();
-
-                    // particles();
-
-                    // // ball.draw();
-                    // // hole.draw();
-                    // // bow.draw();
-                    // // arrow.draw();
-
-                    // for (var i = 0; i < particles.density; i++) {
-                    //     particles[i].render();
-                    // 
-
-                    // particles.forEach(function (e) {
-                        // e.render();
-                    // });
-
-                    // for (var i = 0; i < density; i++) {
-                    //     particles.push(new particle());
-                    // }
-
-                    // if (ball.x == hole.x && ball.y == hole.y)
-                    // {
-                    //     ball.vx = 0;
-                    //     ball.vy = 0;
-                    //     ball.color = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
-                    // }
-                    // else
-                    // {
-                        // ball.x += ball.vx;
-                        // ball.y += ball.vy;
-
-                        // if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0)
-                        // {
-                        //     ball.vy = -ball.vy;
-                        // }
-                        // if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) 
-                        // {
-                        //     ball.vx = -ball.vx;
-                        // }
-                    // }
-
-                
-                    // var particles = {},
-                    // particleIndex = 0;
-
-                    // particleIndex++;
-                    // particles[particleIndex] = this;
-                    // this.id = particleIndex;
-
-                    // requestAnimationFrame(draw);
-    
-                // }
-
-                // canvas.addEventListener('mousemove', function(e) {
-                //     ctx.translate(595, 760);
-                //     ctx.rotate((Math.PI/180 * 90));
-                //     ctx.translate(-595, -760);
-                // })
-                
-            // draw();
-            
             </script>
     </body>
 
