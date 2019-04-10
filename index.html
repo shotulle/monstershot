@@ -84,40 +84,66 @@
                     constructor() {
                         this.x = Math.random() * 800;
                         this.y = Math.random() * 1000;
-                        this.dx = 2;
-                        this.dy = 2;
+                        this.dx = 1;
+                        this.dy = 1;
+                        this.vx = 3;
+                        this.vy = 3;
                         this.size = 25;
                         this.param = 0;
                         this.alive = true;
                         this.type = 0;
                         this.angle = 270;
                         this.sides = 14;
-                        this.fire = [];
                         // this.count = 0;
                     }
                     
                     
                     move(playerx, playery) {
-                        if (this.x > playerx && this.y > playery)
+
+                        if (Math.abs(this.x - playerx) < 200 && Math.abs(this.y - playery) < 200)
                         {
-                            this.x -= this.dx;
-                            this.y -= this.dy;
+                            if (this.alive)
+                            {
+                                if (this.x > playerx && this.y > playery)
+                                {
+                                    this.x -= this.dx;
+                                    this.y -= this.dy;
+                                }
+                                else if (this.x < playerx && this.y < playery)
+                                {
+                                    this.x += this.dx;
+                                    this.y += this.dy;
+                                }
+                                else if (this.x > playerx && this.y < playery)
+                                {
+                                    this.x -= this.dx;
+                                    this.y += this.dy;
+                                }
+                                else if (this.x < playerx && this.y > playery)
+                                {
+                                    this.x += this.dx;
+                                    this.y -= this.dy;
+                                }
+                            }
+                            else
+                            {
+                                this.x += this.vx;
+                                this.y += this.vy;
+                                this.vy *= .99;
+                                this.vy += .25;
+
+                                if (this.y + this.vy > c.height ||
+                                    this.y + this.vy < 0) {
+                                    this.vy = -this.vy;
+                                }
+                                if (this.x + this.vx > c.width ||
+                                    this.x + this.vx < 0) {
+                                    this.vx = -this.vx;
+                                }
+
+                            }
                         }
-                        else if (this.x < playerx && this.y < playery)
-                        {
-                            this.x += this.dx;
-                            this.y += this.dy;
-                        }
-                        else if (this.x > playerx && this.y < playery)
-                        {
-                            this.x -= this.dx;
-                            this.y += this.dy;
-                        }
-                        else if (this.x < playerx && this.y > playery)
-                        {
-                            this.x += this.dx;
-                            this.y -= this.dy;
-                        }
+                        
                     }
 
                     draw() {
@@ -140,13 +166,93 @@
                                 ctx.fill();
                             }
                         }
+                        else if (this.alive == false)
+                        {
+                            ctx.font = '48px serif';
+                            ctx.fillStyle = 'rgb(191, 14, 147)';
+                            ctx.fillText('❤︎', this.x - 15, this.y + 15);
+                        }
                     }
 
                     kill() {
                         this.alive = false;
-                        
                     }
                 }
+
+                var number_of_enemies = 5;
+                var enemies = [];
+                for (var i = 0; i < number_of_enemies; i++)
+                {
+                    enemies.push(new Enemy());
+                }
+
+                class Unchi {
+                    constructor() {
+                        this.x = Math.random() * 800;
+                        this.y = Math.random() * 1000;
+                        this.dx = 2;
+                        this.dy = 2;
+                        this.vx = 3;
+                        this.vy = 3;
+                        this.size = 10;
+                        this.alive = true;
+                        this.speed = 3;
+                        this.moveMin = 50;
+                        this.moveMax = 500;
+                        this.deg = Math.random() * 360;
+                        this.dis = Math.random() * 300;
+                    }
+
+                    move() {
+                        
+                        this.x += this.dx;
+
+                        if (this.x + this.vx > c.width || this.x + this.vx < 0) 
+                        {
+                            this.x = -this.dx;
+                        }
+
+                    } 
+
+                    draw() {
+                        ctx.fillStyle = 'rgb(179, 116, 1)';
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, true);
+                        ctx.arc(this.x + 50, this.y, this.size, 0, Math.PI * 2, true);
+                        ctx.fill();
+                        ctx.moveTo(this.x, this.y - 10);
+                        ctx.fillRect(this.x, this.y - 10, 50, 20);
+                        
+                        ctx.beginPath();
+                        ctx.arc(this.x + 25, this.y - 35, this.size + 5, 0, Math.PI * 2, true);
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.fillStyle = 'black';
+                        ctx.arc(this.x + 15, this.y - 40, this.size + 3, 0, Math.PI * 2, true);
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.fillStyle = 'rgb(179, 116, 1)';
+                        ctx.arc(this.x + 10, this.y - 18, this.size, 0, Math.PI * 2, true);
+                        ctx.arc(this.x + 40, this.y - 18, this.size, 0, Math.PI * 2, true);
+                        ctx.fill();
+                        ctx.moveTo(this.x + 20, this.y - 28);
+                        ctx.fillRect(this.x + 10, this.y - 28, 25, 20);
+                
+                    
+                        
+                    }
+                    
+ 
+                }
+
+                var number_of_unchi = 3;
+                var unchi = [];
+                for (var i = 0; i < number_of_unchi; i++)
+                {
+                    unchi.push(new Unchi());
+                }
+
+                
 
                 
                 function gameClear() {
@@ -183,12 +289,7 @@
 
                 }
 
-                var number_of_enemies = 2;
-                var enemies = [];
-                for (var i = 0; i < number_of_enemies; i++)
-                {
-                    enemies.push(new Enemy());
-                }
+                
 
 
                 class Player {
@@ -209,7 +310,8 @@
                         this.reloadNormal = 0;
                         this.reloadMachinegun = 0;
                         this.reloadShotgun = 0;
-                        this.alive = true;
+                        this.reloadLaser = 0;
+                        this.alive = 0;
                     }
 
                     reload() {
@@ -219,7 +321,11 @@
                         this.reloadMachinegun--;
                     if (this.reloadShotgun > 0)
                         this.reloadShotgun--;
+                    if (this.reloadLaser > 0)
+                        this.reloadLaser--;
                     }
+                    
+                    
 
                     vector() {
                         if (keyDown[key.W])  this.dy -= this.acceleration;
@@ -249,10 +355,11 @@
                         
                         this.eyeX = 0.45 * this.size*Math.cos(this.radian);
                         this.eyeY = 0.45 * this.size*Math.sin(this.radian);
+                    
                     }
 
                     draw() {
-                        if (this.alive)
+                        if (this.alive == 0)
                         {
                             ctx.beginPath();
                             ctx.arc(this.x, this.y, this.size, 0, Math.PI*2, true);
@@ -268,11 +375,11 @@
                             ctx.fillStyle = 'rgb(223, 153, 179)';
                             ctx.fill();
                         }
-                        else if (this.alive == false)
+                        else if (this.alive == 1)
                         {
                             ctx.beginPath();
                             ctx.arc(this.x, this.y, this.size, 0, Math.PI*2, true);
-                            ctx.fillStyle = 'white';
+                            ctx.fillStyle = 'rgb(155, 129, 170)';
                             ctx.fill();
 
                             ctx.beginPath();
@@ -303,54 +410,162 @@
                             ctx.lineTo(this.x + this.eyeX + 5, this.y + this.eyeY + 5);
                             ctx.strokeStyle = 'rgb(223, 153, 179)';
                             ctx.stroke();
-                        
                         }
-        
+                        else if(this.alive == 2)
+                        {
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.size, 0, Math.PI*2, true);
+                            ctx.fillStyle = 'rgb(155, 129, 170)';
+                            ctx.fill();
+
+                            ctx.beginPath();
+                            ctx.lineWidth = 3;
+                            ctx.arc(this.x + this.eyeX - 10, this.y + this.eyeY, this.size / 5, 0, Math.PI*2, true);
+                            ctx.strokeStyle = 'rgb(223, 153, 179)';
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.arc(this.x + this.eyeX + 10, this.y + this.eyeY, this.size / 5, 0, Math.PI*2, true);
+                            ctx.strokeStyle = 'rgb(223, 153, 179)';
+                            ctx.stroke();
+
+                            ctx.beginPath();
+                            ctx.arc(this.x + 10, this.y - 15, 10, 0, Math.PI*2, true);
+                            ctx.arc(this.x + 5, this.y - 18, 8, 0, Math.PI*2, true);
+                            ctx.arc(this.x + 15, this.y - 10, 8, 0, Math.PI*2, true);
+                            ctx.arc(this.x + 20, this.y - 8, 5, 0, Math.PI*2, true);
+                            ctx.arc(this.x + 23, this.y - 12, 8, 0, Math.PI*2, true);
+                            ctx.arc(this.x + 40, this.y - 5, 4, 0, Math.PI*2, true);
+                            ctx.fillStyle = 'rgb(179, 116, 1)';
+                            ctx.fill();
+                        }
+                    
+
+                        else if (this.alive = 3)
+                        {
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.size, 0, Math.PI*2, true);
+                            ctx.fillStyle = 'rgb(253, 0, 120)';
+                            ctx.fill();
+
+                            ctx.beginPath();
+                            ctx.lineWidth = 3;
+                            ctx.arc(this.x + this.eyeX - 10, this.y + this.eyeY, this.size / 5, 0, Math.PI*2, true);
+                            ctx.strokeStyle = 'black';
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.arc(this.x + this.eyeX + 10, this.y + this.eyeY, this.size / 5, 0, Math.PI*2, true);
+                            ctx.strokeStyle = 'black';
+                            ctx.stroke();
+                            ctx.arc(this.x + this.eyeX - 10, this.y + this.eyeY, this.size / 6, 0, Math.PI*2, true);
+                            ctx.fillStyle = 'white';
+                            ctx.fill();
+                            ctx.beginPath();
+                            ctx.arc(this.x + this.eyeX + 10, this.y + this.eyeY, this.size / 6, 0, Math.PI*2, true);
+                            ctx.fillStyle = 'white';
+                            ctx.fill();
+
+
+                        }
                     }
+                        
+                        
+        
+                    
+
+                    
 
                     touchEnemy() {
-                        this.alive = false;
+                        this.alive = 1;
                         clearInterval(game);
                     }
+
+                    touchUnchi() {
+                        this.alive = 2;
+                        clearInterval(game)
+                    }
+
 
                     gameOver() {
                         for (var i = 0; i < 6; i++)
                         {
                             ctx.font = "120" - (i*5) + "px serif";
-                            ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ', 0)';
+                            ctx.fillStyle = 'rgb(' + Math.floor(Math.random()*255) + ', 0, '  + Math.floor(Math.random()*255) + ')';
                             ctx.fillText("GAME OVER", 75 + (i * 10), 500 + (i * 5));
                         }
                     }
+
+                    
                 }
 
                 var player = new Player();
 
+                class Star {
+                    constructor() {
+                        this.x = Math.random() * 800;
+                        this.y = Math.random() * 1000;
+                        this.size = 10;
+                        this.alive = true;
+                    }
+
+                    draw(playerSize) {
+                        if (this.alive == true)
+                        {
+                            ctx.beginPath();
+                            ctx.font = '48px serif';
+                            ctx.fillStyle = 'rgb(243, 243, 107)';
+                            ctx.fillText('★', this.x, this.y);
+                        }
+                        
+                    }
+
+
+                }
+
+                var number_of_star = 3;
+                var star = [];
+                for (var i = 0; i < number_of_star; i++)
+                {
+                    star.push(new Star());
+                }
+
+                
+
 
                 function shot() {
-                    switch (player.weapon) {
-                    case WEAPON.NORMAL:
-                        if (player.reloadNormal === 0) {
-                            bullet.push( new Bullet(5, player.x, player.y, player.radian, 3, 400) );
-                            player.reloadNormal = INTERVAL.NORMAL;
-                        }
-                        break;
-                    case WEAPON.MACHINEGUN:
-                        if (player.reloadMachinegun === 0) {
-                            bullet.push( new Bullet(5, player.x, player.y, player.radian, 7, 200) );
-                            player.reloadMachinegun = INTERVAL.MACHINEGUN;
-                        }
-                        break;
-                    case WEAPON.SHOTGUN:
-                        if (player.reloadShotgun === 0) {
-                            for (var i = -5; i <= 5; i++) {
-                                var rad = i * Math.PI / 35;
-                                bullet.push( new Bullet(3, player.x, player.y, player.radian + rad, 5, 100) );
+                    
+                        switch (player.weapon) {
+                        case WEAPON.NORMAL:
+                            if (player.reloadNormal === 0) {
+                                bullet.push( new Bullet(5, player.x, player.y, player.radian, 3, 400) );
+                                player.reloadNormal = INTERVAL.NORMAL;
                             }
-                            player.reloadShotgun = INTERVAL.SHOTGUN;
+                            break;
+                        case WEAPON.MACHINEGUN:
+                            if (player.reloadMachinegun === 0) {
+                                bullet.push( new Bullet(5, player.x, player.y, player.radian, 7, 200) );
+                                player.reloadMachinegun = INTERVAL.MACHINEGUN;
+                            }
+                            break;
+                        case WEAPON.SHOTGUN:
+                            if (player.reloadShotgun === 0) {
+                                for (var i = -5; i <= 5; i++) {
+                                    var rad = i * Math.PI / 35;
+                                    bullet.push( new Bullet(3, player.x, player.y, player.radian + rad, 5, 100) );
+                                }
+                                player.reloadShotgun = INTERVAL.SHOTGUN;
+                            }
+                            break;
                         }
-                        break;
-                    }  
+                    
+                        if (bullet.status == false) {
+                            if (player.reloadLaser === 0) {
+                                bullet.push( new Bullet(50, player.x, player.y, player.radian, 20, 400) );
+                                
+                            }
+                        }
                 }
+                    
+                    
 
                 
 
@@ -388,6 +603,10 @@
                         gameClear();
                         setInterval(gameClear, 300);
                     }
+                    if (star.every( (e) => !(e.alive) )) {
+                        bullet.status = false;
+                        player.alive = 3;
+                    }
 
                     for (var i = 0; i < bullet.length; i++)
                     {
@@ -399,6 +618,7 @@
                             }
                         }
                     }
+                    
                     if (keyDown[key.SPACE]) {
                         enemies[Math.floor(Math.random()*enemies.length)].kill();
                     }   
@@ -426,6 +646,32 @@
                         }
                     }
 
+                    for (var i = 0; i < unchi.length; i++)
+                    {
+                        if (!unchi[i].alive) {
+                            continue;
+                        }
+                        if (Math.abs(unchi[i].x - player.x) < 40 && Math.abs(unchi[i].y - player.y) < 40)
+                        {
+                            player.touchUnchi();
+                            setInterval(player.gameOver, 300);
+                        }
+                    }
+
+                    
+                    for (var i = 0; i < star.length; i++)
+                    {
+                            
+                        if (!star[i].alive) {
+                            continue;
+                        }
+                        if (Math.abs(star[i].x - player.x) < 40 && Math.abs(star[i].y - player.y) < 40)
+                        {
+                            star[i].alive = false;
+                        }
+                    }
+                    
+
                 
                     player.reload();
                     player.weaponChange();
@@ -440,6 +686,10 @@
                         // enemyMove(enemies[i]);
                         enemies[i].move(player.x, player.y);
                     }
+                    for (var i = 0; i < unchi.length; i++) {
+                        unchi[i].move();
+                    }
+                    
 
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
                     ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -448,6 +698,12 @@
 
                     for (var i = 0; i < enemies.length; i++) {
                         enemies[i].draw();
+                    }
+                    for (var i = 0; i < unchi.length; i++) {
+                        unchi[i].draw();
+                    }
+                    for (var i = 0; i < star.length; i++) {
+                        star[i].draw();
                     }
                 }
 
@@ -460,6 +716,7 @@
                 this.radian = radian;
                 this.speed = speed;               
                 this.limit = Math.round(distance/speed);
+                this.status = true;
             }
 
            
