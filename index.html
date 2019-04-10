@@ -94,37 +94,39 @@
                         this.type = 0;
                         this.angle = 270;
                         this.sides = 14;
+                        this.random_target_x = Math.floor(Math.random()*c.width);
+                        this.random_target_y = Math.floor(Math.random()*c.height);
+                        this.targetx = this.random_target_x;
+                        this.targety = this.random_target_y;
                         // this.count = 0;
                     }
                     
-                    
-                    move(playerx, playery) {
+                    move() {
 
                         if (this.alive)
                         {
-                            if (Math.abs(this.x - playerx) < 200 && Math.abs(this.y - playery) < 200)
-                            {
-                                if (this.x > playerx && this.y > playery)
+                            
+                                if (this.x > this.targetx && this.y > this.targety)
                                 {
                                     this.x -= this.dx;
                                     this.y -= this.dy;
                                 }
-                                else if (this.x < playerx && this.y < playery)
+                                else if (this.x < this.targetx && this.y < this.targety)
                                 {
                                     this.x += this.dx;
                                     this.y += this.dy;
                                 }
-                                else if (this.x > playerx && this.y < playery)
+                                else if (this.x > this.targetx && this.y < this.targety)
                                 {
                                     this.x -= this.dx;
                                     this.y += this.dy;
                                 }
-                                else if (this.x < playerx && this.y > playery)
+                                else if (this.x < this.targetx && this.y > this.targety)
                                 {
                                     this.x += this.dx;
                                     this.y -= this.dy;
                                 }
-                            }
+                            
                         }
                         else
                         {
@@ -685,7 +687,20 @@
 
                     for (var i = 0; i < enemies.length; i++) {
                         // enemyMove(enemies[i]);
-                        enemies[i].move(player.x, player.y);
+                        if (Math.abs(enemies[i].x - player.x) < 200 && Math.abs(enemies[i].y - player.y) < 200) {
+                            enemies[i].targetx = player.x;
+                            enemies[i].targety = player.y;
+                        } else {
+                            enemies[i].targetx = enemies[i].random_target_x;
+                            enemies[i].targety = enemies[i].random_target_y;
+                        }
+
+                        if (Math.abs(enemies[i].x - enemies[i].random_target_x) < 10 && Math.abs(enemies[i].y - enemies[i].random_target_y) < 10) {
+                            enemies[i].random_target_x = Math.floor(Math.random()*c.width);
+                            enemies[i].random_target_y = Math.floor(Math.random()*c.height);
+                        }
+                        
+                        enemies[i].move();
                     }
                     for (var i = 0; i < unchi.length; i++) {
                         unchi[i].move();
