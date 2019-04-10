@@ -100,9 +100,9 @@
                     
                     move(playerx, playery) {
 
-                        if (Math.abs(this.x - playerx) < 200 && Math.abs(this.y - playery) < 200)
+                        if (this.alive)
                         {
-                            if (this.alive)
+                            if (Math.abs(this.x - playerx) < 200 && Math.abs(this.y - playery) < 200)
                             {
                                 if (this.x > playerx && this.y > playery)
                                 {
@@ -125,24 +125,25 @@
                                     this.y -= this.dy;
                                 }
                             }
-                            else
-                            {
-                                this.x += this.vx;
-                                this.y += this.vy;
-                                this.vy *= .99;
-                                this.vy += .25;
-
-                                if (this.y + this.vy > c.height ||
-                                    this.y + this.vy < 0) {
-                                    this.vy = -this.vy;
-                                }
-                                if (this.x + this.vx > c.width ||
-                                    this.x + this.vx < 0) {
-                                    this.vx = -this.vx;
-                                }
-
-                            }
                         }
+                        else
+                        {
+                            this.x += this.vx;
+                            this.y += this.vy;
+                            this.vy *= .99;
+                            this.vy += .25;
+
+                            if (this.y + this.vy > c.height ||
+                                this.y + this.vy < 0) {
+                                this.vy = -this.vy;
+                            }
+                            if (this.x + this.vx > c.width ||
+                                this.x + this.vx < 0) {
+                                this.vx = -this.vx;
+                            }
+
+                        }
+                        
                         
                     }
 
